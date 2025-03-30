@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">search challenge</string>
+    <string name="challenge_expired">Challenge is over</string>
+    <string name="app_name" translatable="false">SnapBattle</string>
+    <string name="in_progress">In progress</string>
+    <string name="friends">Friends</string>
+    <string name="discovery">Discovery</string>
+
+
+</resources>
