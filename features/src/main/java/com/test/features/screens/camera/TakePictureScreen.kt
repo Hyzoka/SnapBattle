@@ -1,14 +1,16 @@
 package com.test.features.screens.camera
 
 import android.Manifest
+import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,12 +30,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
 import com.test.core.ContentCardType
+import com.test.core.R
+import com.test.features.components.MessageView
 import com.test.features.components.animate.AnimatedCircleIconButtonsRow
 import com.test.features.components.camera.CameraCaptureComponent
 import com.test.features.components.topbar.BackTopBar
@@ -65,8 +70,27 @@ fun SharedTransitionScope.TakePictureScreen(
                 cameraPermissionState.launchPermissionRequest()
             }
         }, permissionNotAvailableContent = {
-            Column {
-                Toast.makeText(context, "Permission denied.", Toast.LENGTH_LONG).show()
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                BackTopBar { navController.popBackStack() }
+
+                Spacer(Modifier.weight(1f))
+
+                MessageView(
+                    lottie = R.raw.camera_permission,
+                    message = R.string.enable_permission,
+                    onClicked = {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                            data = Uri.fromParts("package", context.packageName, null)
+                        }
+                        startActivity(context, intent, null)
+                    }
+                )
             }
         }, content = {
             var capturedImageUri by remember { mutableStateOf<Uri?>(null) }

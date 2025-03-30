@@ -32,9 +32,9 @@ fun HomeChallengeScreen(
         })
         when {
             challengesState.isLoading -> LoadingListEventSkeleton(modifier = Modifier)
-            challengesState.error != null -> MessageView(
-                imageResId = null, message = challengesState.error!!, textColor = Color.Red
-            )
+            challengesState.error != null -> {
+                //TODO error content
+            }
 
             challengesState.events.isEmpty() -> {
                 //TODO add lottie

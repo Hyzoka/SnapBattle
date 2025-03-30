@@ -23,9 +23,9 @@ fun FollowingScreen(viewModel: ChallengeDetailViewModel) {
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             postsState.isLoading -> LoadingListPostSkeleton(modifier = Modifier)
-            postsState.error != null -> MessageView(
-                imageResId = null, message = postsState.error!!, textColor = Color.Red
-            )
+            postsState.error != null -> {
+                //TODO error content
+            }
 
             postsState.posts.isEmpty() -> {
                 //TODO add lottie
