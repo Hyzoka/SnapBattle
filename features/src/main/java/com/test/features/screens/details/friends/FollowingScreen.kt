@@ -31,7 +31,7 @@ fun FollowingScreen(viewModel: ChallengeDetailViewModel) {
                 //TODO add lottie
             }
 
-            else -> LazyColumn(contentPadding = PaddingValues(top = 16.dp)) {
+            else -> LazyColumn(contentPadding = PaddingValues(top = 16.dp,bottom = 100.dp)) {
                 //add our post
                 postsState.ourPost?.let {
                     item {
